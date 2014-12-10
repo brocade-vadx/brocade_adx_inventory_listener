@@ -26,7 +26,9 @@ Brocade adx device inventory
 
  9. Restart nova-conductor, nova-scheduler,nova-api, nova-compute
 
- 10. 
+ 10. Install pysubnettree
+			a. wget https://pypi.python.org/packages/source/p/pysubnettree/pysubnettree-0.23.tar.gz
+			b. gunzip and runsetup.py
 
  11. If you want to run the nova_listener as a background service follow the following
 
