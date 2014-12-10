@@ -15,7 +15,6 @@ Brocade adx device inventory
 6. Modify the nova.conf to have the following changes
 
     [DEFAULT]
-    #notifications
     notification_topics=brcd
     notify_on_state_change=vm_state
     notification_driver=nova.openstack.common.notifier.rpc_notifier
@@ -27,7 +26,9 @@ Brocade adx device inventory
 
  9. Restart nova-conductor, nova-scheduler,nova-api, nova-compute
 
- 10. If you want to run the nova_listener as a background service follow the following
+ 10. 
+
+ 11. If you want to run the nova_listener as a background service follow the following
 
             a. edit the brocade_adx_listener.sh to the correct install path
             b. copy the sh file into /etc/init.d/<servicename>
