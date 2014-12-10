@@ -13,24 +13,23 @@ Brocade adx device inventory
 5. Modify the ini file to point to the database to which the device driver will connect to
 
 6. Modify the nova.conf to have the following changes
+[DEFAULT]
+notification_topics=brcd
+notify_on_state_change=vm_state
+notification_driver=nova.openstack.common.notifier.rpc_notifier
 
-    [DEFAULT]
-    notification_topics=brcd
-    notify_on_state_change=vm_state
-    notification_driver=nova.openstack.common.notifier.rpc_notifier
+7. Modify the inventory.conf as applicable
 
- 7. Modify the inventory.conf as applicable
-
- 8. The brocade adx device driver python libraries need to be installed . Please refer to instructions under
+8. The brocade adx device driver python libraries need to be installed . Please refer to instructions under
     github.com/brocade-vadx/adx-device-driver
 
- 9. Restart nova-conductor, nova-scheduler,nova-api, nova-compute
+9. Restart nova-conductor, nova-scheduler,nova-api, nova-compute
 
- 10. Install pysubnettree
+10. Install pysubnettree
 			a. wget https://pypi.python.org/packages/source/p/pysubnettree/pysubnettree-0.23.tar.gz
 			b. gunzip and runsetup.py
 
- 11. If you want to run the nova_listener as a background service follow the following
+11. If you want to run the nova_listener as a background service follow the following
 
             a. edit the brocade_adx_listener.sh to the correct install path
             b. copy the sh file into /etc/init.d/<servicename>
