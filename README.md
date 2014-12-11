@@ -9,7 +9,7 @@ Brocade adx device inventory
 3.Install pysubnettree
 			a. wget https://pypi.python.org/packages/source/p/pysubnettree/pysubnettree-0.23.tar.gz
 			b. gunzip and runsetup.py
-
+			
 4. copy the device_inventory.ini to /etc/neutron/services/loadbalancer/brocade
 
 5. Modify the ini file to point to the database to which the device driver will connect to
@@ -26,7 +26,6 @@ notification_driver=nova.openstack.common.notifier.rpc_notifier
     github.com/brocade-vadx/adx-device-driver
 
 9. Restart nova-conductor, nova-scheduler,nova-api, nova-compute
-
 
 10. If you want to run the nova_listener as a background service follow the following
 
