@@ -1,45 +1,43 @@
-This repository contains the code for the Brocade Device inventory listener. The listener listens to nova events to manage
-Brocade adx device inventory
+This repository contains the code for the Brocade Device Inventory Listener.
+
+The listener listens to nova events and updates the vADX instances in 
+the Brocade ADX Device Inventory Database
 
 
-1. Download the code
+-  Download the Brocade ADX Inventory Listener Code
 
-2. pip install configparser
+-  Install pysubnettree python module
 
-3.Install pysubnettree
-			a. wget https://pypi.python.org/packages/source/p/pysubnettree/pysubnettree-0.23.tar.gz
-			b. gunzip and runsetup.py
+    a. wget https://pypi.python.org/packages/source/p/pysubnettree/pysubnettree-0.23.tar.gz
+
+    b. gunzip pysubnettree-0.23.tar.gz, untar the tar file, cd to the directory
+   
+    c. Run "python setup.py install" to install the pysubnettree 
 			
-4. copy the device_inventory.ini to /etc/neutron/services/loadbalancer/brocade
+-  Modify the nova.conf to have the following changes
 
-5. Modify the ini file to point to the database to which the device driver will connect to
+    [DEFAULT]
 
-6. Modify the nova.conf to have the following changes
-[DEFAULT]
-notification_topics=brcd
-notify_on_state_change=vm_state
-notification_driver=nova.openstack.common.notifier.rpc_notifier
+    notification_topics=brcd
 
-7. Modify the inventory.conf as applicable
+    notify_on_state_change=vm_state
 
-8. The brocade adx device driver python libraries need to be installed . Please refer to instructions under
-    github.com/brocade-vadx/adx-device-driver
+    notification_driver=nova.openstack.common.notifier.rpc_notifier
 
-9. Restart nova-conductor, nova-scheduler,nova-api, nova-compute
+-  Copy inventory_listener.ini to /etc/neutron/services/loadbalancer/brocade directory
+   Modify the inventory_listener.ini as applicable
 
-10. If you want to run the nova_listener as a background service follow the following
+-  Install Brocade ADX Device Driver Python Module. Please refer to install instructions under
+   github.com/brocade-vadx/adx-device-driver
+
+-  Restart nova-conductor, nova-scheduler,nova-api, nova-compute
+
+-  To run the nova_listener as a background service do the following
 
             a. edit the brocade_adx_listener.sh to the correct install path
             b. copy the sh file into /etc/init.d/<servicename>
             c. service <servicename> start
 
-     or if you do not want it as a service run it as python nova_listener.py &
+   (or)
 
-
-
-
-
-
-
-
-
+    Run "python nova_listener.py &" from the command prompt
