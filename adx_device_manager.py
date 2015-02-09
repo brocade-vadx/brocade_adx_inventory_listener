@@ -21,11 +21,11 @@ from datetime import datetime
 from novaclient.v1_1 import client as novaclient
 from neutronclient.v2_0 import client as neutronclient
 
-from utils.brocade_adx_network_matcher import BrocadeAdxSubnetLocator
+from brocade_adx_network_matcher import BrocadeAdxSubnetLocator
 from brocade_neutron_lbaas.db.db_base import configure_db
 from brocade_neutron_lbaas.db.adx_lb_db_plugin import AdxLoadBalancerDbPlugin
 from brocade_neutron_lbaas.db.context import Context
-import utils.adx_inventory_constants as constants
+import adx_inventory_constants as constants
 from config import CONFIG
 
 LOG = logging.getLogger(__name__)
