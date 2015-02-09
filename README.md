@@ -28,7 +28,7 @@ the Brocade ADX Device Inventory Database
    Modify the inventory_listener.ini as applicable
 
 -  Install Brocade ADX Device Driver Python Module. Please refer to install instructions under
-   github.com/brocade-vadx/adx-device-driver
+   https://github.com/brocade-vadx/adx-device-driver
 
 -  Restart nova-conductor, nova-scheduler,nova-api, nova-compute
 
