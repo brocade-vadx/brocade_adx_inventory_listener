@@ -12,7 +12,7 @@ the Brocade ADX Device Inventory Database
 
     b. gunzip pysubnettree-0.23.tar.gz, untar the tar file, cd to the directory
    
-    c. Run "python setup.py install" to install the pysubnettree 
+    c. Run "python setup.py install" to install pysubnettree 
 			
 -  Modify the nova.conf to have the following changes
 
