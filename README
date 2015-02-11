@@ -1,10 +1,10 @@
-This repository contains the code for the Brocade Device Inventory Listener.
+This repository contains the code for the Brocade Nova Listener Python Package.
 
-The listener listens to nova events and updates the vADX instances in 
-the Brocade ADX Device Inventory Database
+The listener listens to nova events and updates the brocade virtual load balancer vm  instances in the device inventory database.
 
 
--  Download the Brocade ADX Inventory Listener Code
+Pre-requisite
+=============
 
 -  Install pysubnettree python module
 
@@ -14,6 +14,13 @@ the Brocade ADX Device Inventory Database
    
     c. Run "python setup.py install" to install pysubnettree 
 			
+-  Install Brocade Neutron LBaaS Device Driver Python Package. Please refer to install instructions under https://github.com/brocade-vadx/adx-device-driver
+
+Install Instructions
+====================
+
+-  Download the Brocade Nove Listener Python Package Code
+
 -  Modify the nova.conf to have the following changes
 
     [DEFAULT]
@@ -24,20 +31,8 @@ the Brocade ADX Device Inventory Database
 
     notification_driver=nova.openstack.common.notifier.rpc_notifier
 
--  Copy inventory_listener.ini to /etc/neutron/services/loadbalancer/brocade directory
-   Modify the inventory_listener.ini as applicable
-
--  Install Brocade ADX Device Driver Python Module. Please refer to install instructions under
-   https://github.com/brocade-vadx/adx-device-driver
+-  Edit /etc/neutron/services/loadbalancer/brocade/inventory_listener.ini file for your configuration
 
 -  Restart nova-conductor, nova-scheduler,nova-api, nova-compute
 
--  To run the nova_listener as a background service do the following
-
-            a. edit the brocade_adx_listener.sh to the correct install path
-            b. copy the sh file into /etc/init.d/<servicename>
-            c. service <servicename> start
-
-   (or)
-
-    Run "python nova_listener.py &" from the command prompt
+-  Run "brocade_nova_listener &" from the command prompt
