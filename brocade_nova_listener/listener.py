@@ -67,8 +67,7 @@ class NotificationHandler(object):
             LOG.info("RECEIVED MESSAGE: %r" % (payload, ))
             image_url=str(payload['image_ref_url'])
 
-            vadx_image_ids = CONFIG.get("DEFAULT", "vadx_image_ids").split(",")
-            #vadx_image_ids = admin_config.vadx_image_id.split(",")
+            vadx_image_ids = CONFIG.get("DEFAULT", "vadx_image_ids")
             if vadx_image_ids == None or len(vadx_image_ids) == 0:
                 LOG.error("No valid vadx image id specified in the config file")
                 return
