@@ -15,6 +15,10 @@
 #    under the License.
 #
 
+import sys
+import eventlet
+eventlet.monkey_patch()
+
 import logging
 import logging.handlers as handlers
 import ConfigParser
@@ -23,7 +27,7 @@ from oslo.config import cfg
 from oslo import messaging
 import eventlet
 
-from adx_device_manager import BrocadeADXDeviceManager
+from device_manager import DeviceManager
 from config import CONFIG
 eventlet.monkey_patch()
 
@@ -55,7 +59,7 @@ LOG = logging.getLogger(__name__)
 
 class NotificationHandler(object):
     def __init__(self):
-        self.adx_inv_manager= BrocadeADXDeviceManager()
+        self.adx_inv_manager= DeviceManager()
 
     def info(self, ctxt, publisher_id, event_type, payload, metadata):
         LOG.info(event_type)
@@ -87,18 +91,30 @@ class NotificationHandler(object):
         LOG.debug(event_type)
         LOG.debug("RECEIVED MESSAGE: %s" % (payload['instance_id'], ))
 
-LOG.info('configuring connection')
-transport_url = CONFIG.get("DEFAULT", "transport_url")
-transport = messaging.get_transport(cfg.CONF, transport_url)
-targets = [messaging.Target(topic='brcd',exchange='nova')]
-endpoints = [NotificationHandler()]
-server = messaging.get_notification_listener(transport,
-                                             targets,
-                                             endpoints,
-                                             allow_requeue=True,
-                                             executor='eventlet')
-LOG.info('starting up server')
-server.start()
-LOG.info('waiting for nova events/notifications')
-server.wait()
+def main(argv=sys.argv[1:]):
+    try:
+        LOG.info('configuring connection')
+        transport_url = CONFIG.get("DEFAULT", "transport_url")
+        transport = messaging.get_transport(cfg.CONF, transport_url)
+        targets = [messaging.Target(topic='brcd',exchange='nova')]
+        endpoints = [NotificationHandler()]
+        server = messaging.get_notification_listener(transport,
+                                                     targets,
+                                                     endpoints,
+                                                     allow_requeue=True,
+                                                     executor='eventlet')
+        LOG.info('starting up server')
+        server.start()
+        LOG.info('waiting for nova events/notifications')
+        server.wait()
+    except KeyboardInterrupt:
+        print("... exiting brocade nova listener")
+        return 130
+    except Exception as e:
+        print(e)
+        return 1
+
+
+if __name__ == "__main__":
+    main()
 

@@ -21,11 +21,11 @@ from datetime import datetime
 from novaclient.v1_1 import client as novaclient
 from neutronclient.v2_0 import client as neutronclient
 
-from brocade_adx_network_matcher import BrocadeAdxSubnetLocator
+from network_matcher import SubnetLocator
 from brocade_neutron_lbaas.db.db_base import configure_db
 from brocade_neutron_lbaas.db.adx_lb_db_plugin import AdxLoadBalancerDbPlugin
 from brocade_neutron_lbaas.db.context import Context
-import adx_inventory_constants as constants
+import constants
 from config import CONFIG
 
 LOG = logging.getLogger(__name__)
@@ -33,12 +33,12 @@ LOG = logging.getLogger(__name__)
 def logWrapper(method):
     def wrapper(*args, **kwargs):
 
-        LOG.debug('BrocadeADXDeviceManager %s called with arguments %s %s'
+        LOG.debug('DeviceManager %s called with arguments %s %s'
                   % (method.__name__, args, kwargs))
         return method(*args, **kwargs)
     return wrapper
 
-class BrocadeADXDeviceManager():
+class DeviceManager():
     def __init__(self):
         # add checks and validation
       self.dm_rlock=threading.RLock()
@@ -47,7 +47,7 @@ class BrocadeADXDeviceManager():
       configure_db(CONFIG.get("DEFAULT", "database"))
       self._nova_client=self._get_nova_client()
       self._neutron_client=self._get_neutron_client()
-      self._mgmt_network_locator= BrocadeAdxSubnetLocator()
+      self._mgmt_network_locator= SubnetLocator()
 
     def _get_nova_client(self):
         return novaclient.Client(

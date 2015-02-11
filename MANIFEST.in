@@ -1,0 +1,3 @@
+include README brocade_nova_listener 
+recursive-include conf *
+global-exclude *.pyc

@@ -24,7 +24,7 @@ from config import CONFIG
 
 LOG = logging.getLogger(__name__)
 
-class BrocadeAdxSubnetLocator(object):
+class SubnetLocator(object):
     def __init__(self):
 
         self.subnet_rlock=threading.RLock()
