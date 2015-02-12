@@ -31,12 +31,6 @@ from device_manager import DeviceManager
 from config import CONFIG
 eventlet.monkey_patch()
 
-import os
-pid = os.getpid()
-op = open("/opt/stack/status/brocade_nova_listener.pid","w")
-op.write("%s" % pid)
-op.close()
-
 FORMAT = "%(asctime)-15s %(levelname)s %(message)s"
 log_dir = CONFIG.get("DEFAULT", "log_dir")
 log_file_name = log_dir  + "/" + "adx_inventory.log"
