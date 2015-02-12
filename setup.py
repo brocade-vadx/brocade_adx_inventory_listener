@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name = "brocade_nova_listener",
-    version = "2015.1",
+    version = "1.0",
     author = "Pattabi Ayyasami",
     author_email = "pattabi@brocade.com",
     description = "Brocade Nova Listener",
@@ -10,7 +10,7 @@ setup(
     long_description = "Brocade Nova Listener for Load Balancer VM Instances",
     packages = ["brocade_nova_listener"],
     scripts = ["scripts/brocade_nova_listener"],
-    data_files = [("/etc/neutron/services/loadbalancer/brocade", ["conf/inventory_listener.ini"])],
+    data_files = [("/etc/neutron/services/loadbalancer/brocade", ["conf/brocade_nova_listener.ini"])],
     license = "Apache Software License",
     platforms = ["Linux"],
     classifiers = [

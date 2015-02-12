@@ -21,8 +21,8 @@ from oslo.config import cfg
 brocade_device_inventory_listener_opts = [
     cfg.StrOpt('device_inventory_listener_file_name',
                default='/etc/neutron/services/loadbalancer/'
-                       'brocade/inventory_listener.ini',
-               help="file containing the brocade device inventroy listener properties")]
+                       'brocade/brocade_nova_listener.ini',
+               help="file containing the brocade nova listener properties")]
 cfg.CONF.register_opts(brocade_device_inventory_listener_opts, "brocade")
 
 CONFIG = ConfigParser.ConfigParser()

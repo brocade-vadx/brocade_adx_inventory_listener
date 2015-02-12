@@ -19,7 +19,15 @@ Pre-requisite
 Install Instructions
 ====================
 
--  Download the Brocade Nove Listener Python Package Code
+-  Download and install the Brocade Nove Listener Python Package Code
+   
+    - From a temporary location, run "git clone https://github.com/brocade-vadx/brocade_adx_inventory_listener.git"
+
+    - Change directory ("cd brocade_adx_inventory_listener")
+
+    - Run "sudo python setup.py install"
+
+-  Edit /etc/neutron/services/loadbalancer/brocade/brocade_nova_listener.ini file as per your configuration
 
 -  Modify the nova.conf to have the following changes
 
@@ -31,8 +39,9 @@ Install Instructions
 
     notification_driver=nova.openstack.common.notifier.rpc_notifier
 
--  Edit /etc/neutron/services/loadbalancer/brocade/inventory_listener.ini file for your configuration
-
 -  Restart nova-conductor, nova-scheduler,nova-api, nova-compute
 
--  Run "brocade_nova_listener &" from the command prompt
+-  Run "brocade_nova_listener &" from the command prompt.
+
+-  Brocade Nova Listener logs the messages in <log_dir>/"brocade_nova_listener.log" file. The <log_dir> and <log_level> are specified in the "/etc/neutron/services/loadbalancer/brocade/brocade_nova_listener.ini" file.
+

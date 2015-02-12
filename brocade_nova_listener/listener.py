@@ -33,7 +33,7 @@ eventlet.monkey_patch()
 
 FORMAT = "%(asctime)-15s %(levelname)s %(message)s"
 log_dir = CONFIG.get("DEFAULT", "log_dir")
-log_file_name = log_dir  + "/" + "adx_inventory.log"
+log_file_name = log_dir  + "/" + "brocade_nova_listener.log"
 log_level = CONFIG.get("DEFAULT", "log_level").upper()
 logging.basicConfig(filename = log_file_name,
                     filemode='w', level=log_level,
@@ -42,7 +42,7 @@ logger = logging.getLogger()
 logger.setLevel(log_level)
 handler = handlers.RotatingFileHandler(
        log_file_name,
-       maxBytes=50000,
+       maxBytes=20000000,
        backupCount=10)
 formatter = logging.Formatter(FORMAT)
 handler.setFormatter(formatter)
@@ -66,7 +66,7 @@ class NotificationHandler(object):
                 LOG.error("No valid vadx image id specified in the config file")
                 return
 
-            for vadx_imag_id in vadx_image_ids:
+            for vadx_image_id in vadx_image_ids:
                 if vadx_image_id in image_url:
                     LOG.info("vadx instance notification received ")
                     self.adx_inv_manager.process_notification(event_type,payload)
