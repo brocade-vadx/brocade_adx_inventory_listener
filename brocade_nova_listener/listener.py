@@ -61,18 +61,16 @@ class NotificationHandler(object):
             LOG.info("RECEIVED MESSAGE: %r" % (payload, ))
             image_url=str(payload['image_ref_url'])
 
-            vadx_image_ids = CONFIG.get("DEFAULT", "vadx_image_ids")
-            if vadx_image_ids == None or len(vadx_image_ids) == 0:
-                LOG.error("No valid vadx image id specified in the config file")
+            vadx_image_id = CONFIG.get("DEFAULT", "vadx_image_ids")
+            if vadx_image_id image_url:
+                LOG.info("vadx instance notification received ")
+                self.adx_inv_manager.process_notification(event_type,payload)
                 return
-
-            for vadx_image_id in vadx_image_ids:
-                if vadx_image_id in image_url:
-                    LOG.info("vadx instance notification received ")
-                    self.adx_inv_manager.process_notification(event_type,payload)
-                    return
-                else:
-                    LOG.info("Notification is not for vadx")
+            else:
+                LOG.info("Notification is not for vadx")
+        else:
+            LOG.info("RECEIVED MESSAGE: %r" % (payload, ))
+            
 
     def warn(self, ctxt, publisher_id, event_type, payload, metadata):
         pass
@@ -90,6 +88,7 @@ def main(argv=sys.argv[1:]):
         transport_url = CONFIG.get("DEFAULT", "transport_url")
         transport = messaging.get_transport(cfg.CONF, transport_url)
         targets = [messaging.Target(topic='brcd',exchange='nova')]
+        #targets = [messaging.Target(topic='brcd']
         endpoints = [NotificationHandler()]
         server = messaging.get_notification_listener(transport,
                                                      targets,
