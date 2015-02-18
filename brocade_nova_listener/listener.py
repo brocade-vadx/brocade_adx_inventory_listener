@@ -62,7 +62,7 @@ class NotificationHandler(object):
             image_url=str(payload['image_ref_url'])
 
             vadx_image_id = CONFIG.get("DEFAULT", "vadx_image_ids")
-            if vadx_image_id image_url:
+            if vadx_image_id in image_url:
                 LOG.info("vadx instance notification received ")
                 self.adx_inv_manager.process_notification(event_type,payload)
                 return
