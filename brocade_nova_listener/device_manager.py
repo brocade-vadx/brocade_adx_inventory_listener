@@ -73,7 +73,7 @@ class DeviceManager():
 
         ins_dict['tenant_id']=notification['tenant_id']
         ins_dict['nova_instance_id']=notification[constants.nova_instance_id]
-        ins_dict['name']=notification['hostname']
+        ins_dict['name']=notification['display_name']
         ins_dict['user']=CONFIG.get("DEFAULT", "vadx_username")
         ins_dict['password']=CONFIG.get("DEFAULT", "vadx_password")
         ins_dict['status']=notification['state']
@@ -127,7 +127,7 @@ class DeviceManager():
                     try:
                         nova_ins=self._nova_client.servers.get(notification[constants.nova_instance_id])
                     except Exception as e:
-                        LOG.exception(e.message,e.args)
+                        LOG.exception(e.message)
                         LOG.error("Nova instance and db instance does not exist stale notification ...ignoring")
                         return
 
@@ -137,7 +137,7 @@ class DeviceManager():
                     ins=ins_dict
 
                 if ins!=None :
-                    ins_dict={'id':ins['id'],'status_description':notification['state_description']}
+                    ins_dict={'id':ins['id'],'name':notification['display_name'],'status_description':notification['state_description']}
                     if (ins['status']=="IN-TRANSITION" and notification['new_task_state']==None):
                         ins_dict['status']=notification['state']
                         ins['status']=notification['state']
@@ -154,7 +154,7 @@ class DeviceManager():
                         try:
                             nova_ins=self._nova_client.servers.get(notification[constants.nova_instance_id])
                         except Exception as e:
-                            LOG.exception(e.message,e.args)
+                            LOG.exception(e.message)
                             LOG.error("Nova instance and db instance does not exist stale notification ...ignoring")
                             return
                         LOG.info("got instance")
@@ -186,7 +186,7 @@ class DeviceManager():
                     ins_up_dict={'id':ins['id'],'status':ins['status']}
                     ins=self.plugin.update_adxloadbalancer(ins_up_dict,self.context)
         except Exception as e:
-            LOG.exception(e.message,e.args)
+            LOG.exception(e.message)
         finally:
             self.dm_rlock.release()
 

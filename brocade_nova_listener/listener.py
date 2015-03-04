@@ -58,18 +58,20 @@ class NotificationHandler(object):
     def info(self, ctxt, publisher_id, event_type, payload, metadata):
         LOG.info(event_type)
         if str(event_type).startswith("compute.instance"):
-            LOG.info("RECEIVED MESSAGE: %r" % (payload, ))
+            #LOG.info("RECEIVED MESSAGE: %r" % (payload, ))
             image_url=str(payload['image_ref_url'])
 
             vadx_image_id = CONFIG.get("DEFAULT", "vadx_image_ids")
             if vadx_image_id in image_url:
                 LOG.info("vadx instance notification received ")
+                LOG.info("RECEIVED MESSAGE: %r" % (payload, ))
                 self.adx_inv_manager.process_notification(event_type,payload)
                 return
             else:
                 LOG.info("Notification is not for vadx")
         else:
-            LOG.info("RECEIVED MESSAGE: %r" % (payload, ))
+            #LOG.info("RECEIVED MESSAGE: %r" % (payload, ))
+            pass
             
 
     def warn(self, ctxt, publisher_id, event_type, payload, metadata):
@@ -79,8 +81,9 @@ class NotificationHandler(object):
         pass
 
     def debug(self, ctx, publisher_id, event_type, payload, metadata):
-        LOG.debug(event_type)
-        LOG.debug("RECEIVED MESSAGE: %s" % (payload['instance_id'], ))
+        pass
+        #LOG.debug(event_type)
+        #LOG.debug("RECEIVED MESSAGE: %s" % (payload['instance_id'], ))
 
 def main(argv=sys.argv[1:]):
     try:
